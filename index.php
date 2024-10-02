@@ -6,19 +6,17 @@ include "students.php";
 $db = new database();
 $product = new students($db->getConnection());
 
-$limit = 5; // Number of records per page
+$limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Fetch paginated students
 $products = $product->getPaginated($limit, $offset);
 $total_records = $product->getCount();
 $total_pages = ceil($total_records / $limit);
 
-// Handle delete request
 if (isset($_GET['delete_id'])) {
     $product->delete($_GET['delete_id']);
-    header("Location: index.php?page=" . $page); // Redirect back to the current page
+    header("Location: index.php?page=" . $page); 
 }
 
 ?>
@@ -59,12 +57,14 @@ if (isset($_GET['delete_id'])) {
                     </td>
                     <td>
                         <a href="index.php?delete_id=<?= $product['id'] ?>&page=<?= $page ?>" class="btn btn-danger">Delete</a>
+                        <a href="edit_student.php?id=<?= $product['id'] ?>" class="btn btn-warning">Edit</a> <!-- Edit Button -->
                     </td>
                 </tr>
            <?php }
         ?>
     </tbody>
 </table>
+
 
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center">
