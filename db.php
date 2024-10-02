@@ -1,6 +1,6 @@
 <?php
 
-class database{
+class database {
     public $localhost = 'localhost';
     public $username = 'root';
     public $password = 'Kenc1k06';
@@ -8,13 +8,17 @@ class database{
 
     public $conn;
 
-    public function __construct()
-    {
-        $this->conn = new PDO("mysql:host=this->localhost;dbname=this->dbname" , $this->username,$this->password);
+    public function __construct() {
+        try {
+            $this->conn = new PDO("mysql:host=".$this->localhost.";dbname=".$this->dbname, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Set PDO error mode to exception
+        } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+        }
     }
 
-    public function conn(){
-        return $this->conn();
-    } 
+    public function getConnection() {
+        return $this->conn;
+    }
 }
 ?>
