@@ -13,6 +13,22 @@ class students {
     public function __construct($db) {
         $this->conn = $db;
     }
+    public function insert() {
+        $query = "INSERT INTO students (familiya, ism, manzil, image) VALUES (:familiya, :ism, :manzil, :image)";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':familiya', $this->familiya);
+        $stmt->bindParam(':ism', $this->ism);
+        $stmt->bindParam(':manzil', $this->manzil);
+        $stmt->bindParam(':image', $this->image);
+
+        if($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+    
 
     public function getPaginated($limit, $offset) {
         $sql = "SELECT * FROM " . $this->table . " LIMIT :limit OFFSET :offset";

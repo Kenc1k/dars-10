@@ -6,7 +6,7 @@ $db = new database();
 $product = new students($db->getConnection());
 
 if(isset($_POST['back'])){
-    header('location:index.php');
+    header('location:index.php');  
 }
 if (isset($_GET['id'])) {
     $product->id = $_GET['id'];

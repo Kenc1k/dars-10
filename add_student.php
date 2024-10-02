@@ -16,9 +16,7 @@ if (isset($_POST['ok'])) {
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "uploads/"; 
-
         $imageFileType = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
-
         $newFileName = time() . '.' . $imageFileType;
         $target_file = $target_dir . $newFileName;
 
@@ -31,8 +29,14 @@ if (isset($_POST['ok'])) {
         $product->image = "";
     }
 
-    $result = $product->getCount();
+    // Insert student record into the database
+    if ($product->insert()) {
+        echo "<div class='alert alert-success'>Student added successfully!</div>";
+    } else {
+        echo "<div class='alert alert-danger'>Error adding student.</div>";
+    }
 }
+
 ?>
 
 <!DOCTYPE html>

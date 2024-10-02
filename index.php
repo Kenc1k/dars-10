@@ -6,7 +6,7 @@ include "students.php";
 $db = new database();
 $product = new students($db->getConnection());
 
-$limit = 5;
+$limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
